@@ -1,0 +1,29 @@
+{
+  "name": "cross-post",
+  "version": "1.0.0",
+  "description": "Cross post your messages on Slack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maryliag/cross-post.git"
+  },
+  "keywords": [
+    "cross-post",
+    "slack"
+  ],
+  "author": "Marylia Gutierrez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maryliag/cross-post/issues"
+  },
+  "homepage": "https://github.com/maryliag/cross-post#readme",
+  "dependencies": {
+    "@slack/bolt": "^3.11.0",
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.0"
+  }
+}
