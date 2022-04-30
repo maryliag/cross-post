@@ -15,36 +15,40 @@ the original thread to indicate where the conversation should continue! Chaos no
 :smile:
 
 ## Usage
-1. Click on `More Actions` on the message you want to share (you don't have to be the author)  
-<img src="images/select-action.png" width="400"/>
-2. Select the channel you want to share    
-<img src="images/share-message.png" width="400"/>
-3. The Message will show up in the new channel  
-<img src="images/shared-message.png" width="600"/>
-4. The confirmation message will show up in the original message  
-<img src="images/confirmation-message.png" width="400"/>
+1. Click on `More Actions` on the message you want to share (you don't have to be the author) and select the channel you want to share 
+<img src="images/sharing.gif" width="600"/>
+2. The Message will show up in the new channel  
+<img src="images/shared-message.gif" width="600"/>
+3. The confirmation message will show up in the original message  
+<img src="images/confirmation.gif" width="400"/>
+4. And now people can reply to the right thread
+<img src="images/answer.gif" width="400"/>
 
 ## Setup
 ### Create the App on Slack
-1. Go to https://api.slack.com/apps/ and click on `Create App`  
+1. Go to https://api.slack.com/apps/ and click on `Create App` and select your workspace  
 2. Add a name (`Cross Post`) and a description (`Cross Post messages to another channel`)   
-3. Add an image (You can use the `crossroad.png` file from the `images` folder)  
-4. Copy the values for `SLACK_SIGNING_SECRET` and `SLACK_BOT_TOKEN` (you will add them to the `.env` file)
+3. Add an image (You can use the `crossroad.png` file from the `images` folder) and background color (`#000000`)  
+4. Copy the value for `Signing Secret` and add it to the `.env` file with key `SLACK_SIGNING_SECRET`  
+5. On `App-Level Token` section click on `Generate Token and Scopes` and add name `Bot-token` and scope `connections:write`
 
 ### Add Permissions
-1. Go to `OAuth & Permissions`
-2. Add the scopes: `chat:write`, `users:read`, `chat:write.public`, `channels:read`
+1. Go to `OAuth & Permissions` 
+2. On the `Scopes` section, add the scopes: `chat:write`, `users:read`, `chat:write.public`, `channels:read`
+3. On the `OAuth Tokens for Your Workspace` section, click on `Install to Workspace`
+4. Copy the value of `Bot User OAuth Token` (it should start with `xoxb-`) and add it to `.env` file with key `SLACK_BOT_TOKEN`
 
 ### Connect your App to Slack
 1. Go to the `Interactivity & Shortcuts` and turn it on
 2. Add the URL for your App ending with `/slack/events`, e.g. `https://example.ngrok.io/slack/events`
 3. Click on `Create New Shortcut` and select `On messages`
 4. Add name (`Cross Post this message`) and description (`Cross Post this message to another channel`) 
-5. Add a callback id (`cross_post`)
+5. Add the callback id `cross_post`
+6. After some of these steps, you might get a warning that you will need to re-install your App, so go to `Install App` and click on `Reinstall to Workspace`
 
 ### Add the emojis to Slack
 1. Click on the emoji on your input area and `Add Emoji`  
-<img src="images/add-emoji.png" width="200"/>
+<img src="images/add-emoji.gif" width="200"/>
 
 2. Using the images from the `images` folder, add `parrot-in` <img src="images/parrot-in.gif" width="25"/> and `parrot-out` <img src="images/parrot-out.gif" width="25"/> to your Slack, using those exact names.  
 

@@ -39,13 +39,13 @@ module.exports = {
     sharedMessage: context => {
         return {
             channel: context.channel_id,
-            text: context.message,
+            text: "Message cross posted",
             blocks: [
                 {
                     type: 'section',
                     text: {
                         type: 'mrkdwn',
-                        text: `:parrot-out: Original <${context.link}|message> shared on <#${context.original_channel_id}> by <@${context.username}>. Please continue thread here.`
+                        text: `:parrot-out: Original <${context.link}|message> sent on <#${context.original_channel_id}> by <@${context.username}>. Please continue thread here.`
                     }
                 },
                 {
@@ -70,7 +70,7 @@ module.exports = {
                     type: 'section',
                     text: {
                         type: 'mrkdwn',
-                        text: `:parrot-in: Your message was shared to the channel <#${context.shared_channel_id}>. Please continue this thread <${context.message_link}|there>.`
+                        text: `:parrot-in: This message was shared to the channel <#${context.shared_channel_id}>. Please continue this thread <${context.message_link}|there>.`
                     }
                 },
             ]

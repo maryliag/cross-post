@@ -87,4 +87,4 @@ app.view('cross_post_callback', async ({ body, view, ack, client, logger }) => {
     }
 });
 
-exports.slack = receiver.requestHandler;
+exports.slack = receiver.app;
