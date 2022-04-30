@@ -19,11 +19,6 @@ const app = new App({
     console.log('Cross Post app is running!');
 })();
 
-let message;
-let thread_ts;
-let original_channel_id;
-let shared_channel_id;
-
 const rawBodyBuffer = (req, res, buf, encoding) => {
     if (buf && buf.length) {
         req.rawBody = buf.toString(encoding || 'utf8');
@@ -34,16 +29,21 @@ receiver.router.use(bodyParser.urlencoded({ verify: rawBodyBuffer, extended: tru
 receiver.router.use(bodyParser.json({ verify: rawBodyBuffer }));
 
 // The cross_post shortcut opens a modal
-app.shortcut('cross_post', async ({ shortcut, ack, logger }) => {
+app.shortcut('cross_post', async ({ shortcut, ack, logger, client }) => {
     try {
         // Acknowledge shortcut request
         await ack({
             response_action: "clear",
         });
-        thread_ts = shortcut.message["ts"];
-        original_channel_id = shortcut.channel.id;
-        message = shortcut.message.text;
-        let result = await actions.openModal(app, shortcut)
+
+        let resultMessagePermalink = await actions.getMessagePermalink(
+            client, shortcut.channel.id, shortcut.message['ts']);
+        if (resultMessagePermalink.error) {
+            logger.error(resultMessagePermalink.error);
+        }
+        let link = resultMessagePermalink['permalink'];
+
+        let result = await actions.openModal(app, shortcut, link)
         if (result.error) {
             logger.error(result.error);
         }
@@ -61,8 +61,11 @@ app.view('cross_post_callback', async ({ body, view, ack, client, logger }) => {
         });
         const { user } = body;
 
-        shared_channel_id = view.state.values.channel.channel_id['selected_channel']
-        let resultShare = await actions.shareMessage(client, user, view, message, original_channel_id);
+        let thread_ts = view.private_metadata.split(",")[0];
+        let original_channel_id = view.private_metadata.split(",")[1];
+        let link = view.private_metadata.split(",")[2];
+        let shared_channel_id = view.state.values.channel.channel_id['selected_channel']
+        let resultShare = await actions.shareMessage(client, user, view, original_channel_id, link);
         if (resultShare.error) {
             logger.error(resultShare.error);
         }
@@ -83,3 +86,5 @@ app.view('cross_post_callback', async ({ body, view, ack, client, logger }) => {
         logger.error(error);
     }
 });
+
+exports.slack = receiver.requestHandler;

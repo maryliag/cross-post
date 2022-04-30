@@ -9,6 +9,7 @@ module.exports = {
                     text: 'Cross Post Message'
                 },
                 callback_id: 'cross_post_callback',
+                private_metadata: context.metadata,
                 submit: {
                     type: 'plain_text',
                     text: 'Cross Post'
@@ -44,18 +45,11 @@ module.exports = {
                     type: 'section',
                     text: {
                         type: 'mrkdwn',
-                        text: `:parrot-out: Original message shared on <#${context.original_channel_id}> by @${context.username}`
+                        text: `:parrot-out: Original <${context.link}|message> shared on <#${context.original_channel_id}> by <@${context.username}>. Please continue thread here.`
                     }
                 },
                 {
                     type: 'divider'
-                },
-                {
-                    type: 'section',
-                    text: {
-                        type: 'mrkdwn',
-                        text: context.message
-                    }
                 },
             ]
         }
@@ -76,7 +70,7 @@ module.exports = {
                     type: 'section',
                     text: {
                         type: 'mrkdwn',
-                        text: `:parrot-in: Your message was shared to the channel <#${context.shared_channel_id}>. Please continue this thread <${context.message_link}|here>.`
+                        text: `:parrot-in: Your message was shared to the channel <#${context.shared_channel_id}>. Please continue this thread <${context.message_link}|there>.`
                     }
                 },
             ]

@@ -1,24 +1,25 @@
 const payloads = require("./payloads");
 
 // Open Modal containing the select for the channel to share the message and the text message.
-const openModal = async (app, payload) => {
+const openModal = async (app, payload, link) => {
     const viewData = payloads.openModal({
         trigger_id: payload.trigger_id,
         user_id: payload.user.id,
         username: payload.user.username,
+        metadata: payload.message["ts"] + "," + payload.channel.id + "," + link,
     });
     return app.client.views.open(viewData);
 };
 
 // Sharing the message to a new channel.
-const shareMessage = async (client, user, view, message, original_channel_id) => {
+const shareMessage = async (client, user, view, original_channel_id, link) => {
     const values = view.state.values;
     const messageData = payloads.sharedMessage({
         original_channel_id: original_channel_id,
         channel_id: values.channel.channel_id['selected_channel'],
         user_id: user.id,
         username: user.username,
-        message: message,
+        link: link,
     });
 
     return client.chat.postMessage(messageData);
