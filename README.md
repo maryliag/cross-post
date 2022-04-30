@@ -1,4 +1,4 @@
-# cross-post <img src="images/crossroad.png" width="20"/>
+# Cross Post <img src="images/crossroad.png" width="20"/>
 
 Slack App for cross posting messages to a different channel.
 
@@ -8,10 +8,10 @@ what do you do? Share the message to the right channel!
 But now you have people replying to the original message and others replying to the 
 shared message, no one knows what is going on! It's chaos!! Help! :scream:
 
-Don't worry, Cross Post is here to help you!
+Don't worry, **Cross Post** is here to help you!
 
-Now the message is shared to the new correct channel and a message is also sent to 
-the original thread to indicated where the conversation should continue! Chaos no more!
+Now the message is shared to the correct channel and another message is sent to 
+the original thread to indicate where the conversation should continue! Chaos no more!
 :smile:
 
 ## Usage
@@ -32,7 +32,7 @@ the original thread to indicated where the conversation should continue! Chaos n
 4. Copy the values for `SLACK_SIGNING_SECRET` and `SLACK_BOT_TOKEN` (you will add them to the `.env` file)
 
 ### Add Permissions
-1. Go to OAuth & Permissions
+1. Go to `OAuth & Permissions`
 2. Add the scopes: `chat:write`, `users:read`, `chat:write.public`, `channels:read`
 
 ### Connect your App to Slack
@@ -45,6 +45,7 @@ the original thread to indicated where the conversation should continue! Chaos n
 ### Add the emojis to Slack
 1. Click on the emoji on your input area and `Add Emoji`  
 <img src="images/add-emoji.png" width="200"/>
+
 2. Using the images from the `images` folder, add `parrot-in` <img src="images/parrot-in.gif" width="25"/> and `parrot-out` <img src="images/parrot-out.gif" width="25"/> to your Slack, using those exact names.  
 
 ### Production
