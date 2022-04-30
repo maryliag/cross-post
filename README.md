@@ -30,11 +30,10 @@ the original thread to indicate where the conversation should continue! Chaos no
 2. Add a name (`Cross Post`) and a description (`Cross Post messages to another channel`)   
 3. Add an image (You can use the `crossroad.png` file from the `images` folder) and background color (`#000000`)  
 4. Copy the value for `Signing Secret` and add it to the `.env` file with key `SLACK_SIGNING_SECRET`  
-5. On `App-Level Token` section click on `Generate Token and Scopes` and add name `Bot-token` and scope `connections:write`
 
 ### Add Permissions
 1. Go to `OAuth & Permissions` 
-2. On the `Scopes` section, add the scopes: `chat:write`, `users:read`, `chat:write.public`, `channels:read`
+2. On the `Scopes` section, under `Bot Token Scopes` add the scopes: `chat:write`, `users:read`, `chat:write.public`, `channels:read`
 3. On the `OAuth Tokens for Your Workspace` section, click on `Install to Workspace`
 4. Copy the value of `Bot User OAuth Token` (it should start with `xoxb-`) and add it to `.env` file with key `SLACK_BOT_TOKEN`
 
@@ -53,12 +52,32 @@ the original thread to indicate where the conversation should continue! Chaos no
 2. Using the images from the `images` folder, add `parrot-in` <img src="images/parrot-in.gif" width="25"/> and `parrot-out` <img src="images/parrot-out.gif" width="25"/> to your Slack, using those exact names.  
 
 ### Production
-TBD
+You can host your App anywhere, on this example I hosted on GCP Cloud Functions.
+1. Create an Organization and a Project
+2. Inside your project click on `Create Function`
+3. Add function name (`cross-post`)
+4. On Trigger change to `Allow unauthenticated invocations` (you can leave everything else as default or change as necessary)
+5. Open `Runtime, build, ...` and click on `Add Variable`
+6. Add `SLACK_SIGNING_SECRET` and `SLACK_BOT_TOKEN` with the values you saved on previous steps
+7. Click on Next
+8. Update the `package.json` and `index.js` files to the ones from here
+9. On the `index.js` you can remove the part that is not necessary on Cloud Functions
+```
+(async () => {
+    await app.start(process.env.PORT || 6000);
+    console.log('Cross Post app is running!');
+})();
+```
+10. Add the `actions.js` and `payloads.js` files
+11. Make sure `Runtime` has `Node.js` selected
+12. Change `Entry Point` to `slack`
+13. Click on Deploy :tada:
+14. If anything goes wrong you can check on the logs
 
 ### To test locally
 1. Install node and ngrok
 2. Start your app with `npm start`
 3. Start your tunnel with `ngrok http 6000` (or whatever port you used on `index.js`)
-4. Update the URL on Interactivity & Shortcuts to point to the URL created on the previous step
+4. Update the URL on `Interactivity & Shortcuts` to point to the URL created on the previous step
 
 (Note: the tunnel has a session, e.g. 2h, so make sure it's still up when you're testing)
