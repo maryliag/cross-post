@@ -11,9 +11,14 @@ channel and a message on the original thread is sent to indicated to where the c
 moved to and where it should continue.
 
 ##Usage
-- Click on `More Actions` on the message you want to share (you don't have to be the author)
-- The Message will show up on the new channel
-- The confirmation message will show up on the original message
+- Click on `More Actions` on the message you want to share (you don't have to be the author)  
+<img src="images/select-action.png" width="300"/>
+- Select the channel you want to share and add any new info if you want   
+<img src="images/share-message.png" width="300"/>
+- The Message will show up on the new channel  
+<img src="images/shared-message.png" width="300"/>
+- The confirmation message will show up on the original message  
+<img src="images/confirmation-message.png" width="300"/>
 
 ## Setup
 ### Create the App on Slack
@@ -34,8 +39,9 @@ moved to and where it should continue.
 - Add a callback id (`crosspost`)
 
 ### Add the emojis to Slack
-- Click on the emoji on your input area and `Add Emoji`
-- Using the images from the `images` folder, add `parrot-in` <img src="images/parrot-in.gif" alt="drawing" width="25"/> and `parrot-out` <img src="images/parrot-out.gif" width="25"/> to your Slack, using those exact names.  
+- Click on the emoji on your input area and `Add Emoji`  
+  <img src="images/add-emoji.png" width="200"/>
+- Using the images from the `images` folder, add `parrot-in` <img src="images/parrot-in.gif" width="25"/> and `parrot-out` <img src="images/parrot-out.gif" width="25"/> to your Slack, using those exact names.  
 
 
 ### To test locally
