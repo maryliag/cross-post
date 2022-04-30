@@ -31,20 +31,6 @@ module.exports = {
                             text: 'Cross Post to'
                         }
                     },
-                    {
-                        block_id: 'message',
-                        type: 'input',
-                        element: {
-                            action_id: 'message',
-                            type: 'plain_text_input',
-                            multiline: true,
-                            initial_value: `${context.message}`,
-                        },
-                        label: {
-                            type: 'plain_text',
-                            text: 'Message'
-                        }
-                    },
                 ]
             }
         }
@@ -58,7 +44,7 @@ module.exports = {
                     type: 'section',
                     text: {
                         type: 'mrkdwn',
-                        text: `:parrot-out: Message from @${context.username}`
+                        text: `:parrot-out: Original message shared on <#${context.original_channel_id}> by @${context.username}`
                     }
                 },
                 {
@@ -90,7 +76,7 @@ module.exports = {
                     type: 'section',
                     text: {
                         type: 'mrkdwn',
-                        text: `:parrot-in: Your message was shared to channel <#${context.shared_channel_id}>. Please continue this thread <${context.message_link}|here>.`
+                        text: `:parrot-in: Your message was shared to the channel <#${context.shared_channel_id}>. Please continue this thread <${context.message_link}|here>.`
                     }
                 },
             ]

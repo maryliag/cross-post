@@ -6,19 +6,19 @@ const openModal = async (app, payload) => {
         trigger_id: payload.trigger_id,
         user_id: payload.user.id,
         username: payload.user.username,
-        message: payload.message.text
     });
     return app.client.views.open(viewData);
 };
 
 // Sharing the message to a new channel.
-const shareMessage = async (app, user, view) => {
+const shareMessage = async (app, user, view, message, original_channel_id) => {
     const values = view.state.values;
     const messageData = payloads.sharedMessage({
+        original_channel_id: original_channel_id,
         channel_id: values.channel.channel_id['selected_channel'],
         user_id: user.id,
         username: user.username,
-        message: values.message.message.value,
+        message: message,
     });
 
     return app.client.chat.postMessage(messageData);

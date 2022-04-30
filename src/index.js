@@ -19,6 +19,7 @@ const app = new App({
     console.log('Cross Post app is running!');
 })();
 
+let message;
 let thread_ts;
 let original_channel_id;
 let shared_channel_id;
@@ -40,6 +41,7 @@ receiver.router.post('/actions', async (req, res) => {
         case 'message_action':
             thread_ts = payload.message["ts"];
             original_channel_id = payload.channel.id;
+            message = payload.message.text;
             let resultModal = await actions.openModal(app, payload)
             if (resultModal.error) {
                 console.log(resultModal.error);
@@ -50,9 +52,9 @@ receiver.router.post('/actions', async (req, res) => {
             // immediately respond with an empty 200 response to let
             // Slack know the command was received.
             res.send('');
-            // res.status(200).send()
+            // res.status(200).send();
             shared_channel_id = view.state.values.channel.channel_id['selected_channel']
-            let resultShare = await actions.shareMessage(app, user, view);
+            let resultShare = await actions.shareMessage(app, user, view, message, original_channel_id);
             if (resultShare.error) {
                 console.log(resultShare.error);
                 return res.status(500).send();
