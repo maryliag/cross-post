@@ -72,7 +72,7 @@ You can host your App anywhere, on this example I hosted on GCP Cloud Functions.
 11. Make sure `Runtime` has `Node.js` selected
 12. Change `Entry Point` to `slack`
 13. Click on Deploy :tada:
-14. If anything goes wrong you can check on the logs
+14. If anything goes wrong you can check in the logs
 
 ### To test locally
 1. Install node and ngrok
