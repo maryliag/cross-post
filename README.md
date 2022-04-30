@@ -13,7 +13,7 @@ moved to and where it should continue.
 ## Usage
 - Click on `More Actions` on the message you want to share (you don't have to be the author)  
 <img src="images/select-action.png" width="400"/>
-- Select the channel you want to share and add any new info if you want   
+- Select the channel you want to share    
 <img src="images/share-message.png" width="400"/>
 - The Message will show up on the new channel  
 <img src="images/shared-message.png" width="600"/>
@@ -36,7 +36,7 @@ moved to and where it should continue.
 - Add the URL for your App
 - Add shortcut > on messages
 - Add name (`Cross Post this message`) and description (`Cross Post this message to another channel`) 
-- Add a callback id (`crosspost`)
+- Add a callback id (`cross_post`)
 
 ### Add the emojis to Slack
 - Click on the emoji on your input area and `Add Emoji`  

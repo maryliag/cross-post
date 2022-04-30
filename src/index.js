@@ -33,47 +33,53 @@ const rawBodyBuffer = (req, res, buf, encoding) => {
 receiver.router.use(bodyParser.urlencoded({ verify: rawBodyBuffer, extended: true }));
 receiver.router.use(bodyParser.json({ verify: rawBodyBuffer }));
 
-receiver.router.post('/actions', async (req, res) => {
-    const payload = JSON.parse(req.body.payload);
-    const { type, user, view } = payload;
-
-    switch (type) {
-        case 'message_action':
-            thread_ts = payload.message["ts"];
-            original_channel_id = payload.channel.id;
-            message = payload.message.text;
-            let resultModal = await actions.openModal(app, payload)
-            if (resultModal.error) {
-                console.log(resultModal.error);
-                return res.status(500).send();
-            }
-            return res.status(200).send();
-        case 'view_submission':
-            // immediately respond with an empty 200 response to let
-            // Slack know the command was received.
-            res.send('');
-            // res.status(200).send();
-            shared_channel_id = view.state.values.channel.channel_id['selected_channel']
-            let resultShare = await actions.shareMessage(app, user, view, message, original_channel_id);
-            if (resultShare.error) {
-                console.log(resultShare.error);
-                return res.status(500).send();
-            }
-
-            let resultMessagePermalink = await actions.getMessagePermalink(
-                app, shared_channel_id, resultShare.message['ts']);
-            if (resultMessagePermalink.error) {
-                console.log(resultMessagePermalink.error);
-                return res.status(500).send();
-            }
-
-            let resultConfirmation = await actions.sendConfirmation(
-                app, thread_ts, original_channel_id, shared_channel_id, resultMessagePermalink['permalink']);
-            if (resultConfirmation.error) {
-                console.log(resultConfirmation.error);
-                return res.status(500).send();
-            }
-            break;
+// The cross_post shortcut opens a modal
+app.shortcut('cross_post', async ({ shortcut, ack, logger }) => {
+    try {
+        // Acknowledge shortcut request
+        await ack({
+            response_action: "clear",
+        });
+        thread_ts = shortcut.message["ts"];
+        original_channel_id = shortcut.channel.id;
+        message = shortcut.message.text;
+        let result = await actions.openModal(app, shortcut)
+        if (result.error) {
+            logger.error(result.error);
+        }
     }
+    catch (error) {
+        logger.error(error);
+    }
+});
 
+app.view('cross_post_callback', async ({ body, view, ack, client, logger }) => {
+    try {
+        // Acknowledge request
+        await ack({
+            response_action: "clear",
+        });
+        const { user } = body;
+
+        shared_channel_id = view.state.values.channel.channel_id['selected_channel']
+        let resultShare = await actions.shareMessage(client, user, view, message, original_channel_id);
+        if (resultShare.error) {
+            logger.error(resultShare.error);
+        }
+
+        let resultMessagePermalink = await actions.getMessagePermalink(
+            client, shared_channel_id, resultShare.message['ts']);
+        if (resultMessagePermalink.error) {
+            logger.error(resultMessagePermalink.error);
+        }
+
+        let resultConfirmation = await actions.sendConfirmation(
+            client, thread_ts, original_channel_id, shared_channel_id, resultMessagePermalink['permalink']);
+        if (resultConfirmation.error) {
+            logger.error(resultConfirmation.error);
+        }
+    }
+    catch (error) {
+        logger.error(error);
+    }
 });

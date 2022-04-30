@@ -8,7 +8,7 @@ module.exports = {
                     type: 'plain_text',
                     text: 'Cross Post Message'
                 },
-                callback_id: 'crosspost',
+                callback_id: 'cross_post_callback',
                 submit: {
                     type: 'plain_text',
                     text: 'Cross Post'

@@ -11,7 +11,7 @@ const openModal = async (app, payload) => {
 };
 
 // Sharing the message to a new channel.
-const shareMessage = async (app, user, view, message, original_channel_id) => {
+const shareMessage = async (client, user, view, message, original_channel_id) => {
     const values = view.state.values;
     const messageData = payloads.sharedMessage({
         original_channel_id: original_channel_id,
@@ -21,21 +21,21 @@ const shareMessage = async (app, user, view, message, original_channel_id) => {
         message: message,
     });
 
-    return app.client.chat.postMessage(messageData);
+    return client.chat.postMessage(messageData);
 }
 
 // Get the link for the message just shared.
-const getMessagePermalink = async (app, channel_id, message_ts) => {
+const getMessagePermalink = async (client, channel_id, message_ts) => {
     const messageData = payloads.getPermalink({
         channel_id: channel_id,
         message_ts: message_ts,
     });
 
-    return app.client.chat.getPermalink(messageData);
+    return client.chat.getPermalink(messageData);
 }
 
 // Post confirmation on the original message, pointing to the new thread.
-const sendConfirmation = async (app, thread_ts, original_channel_id, shared_channel_id, message_link) => {
+const sendConfirmation = async (client, thread_ts, original_channel_id, shared_channel_id, message_link) => {
     const messageData = payloads.confirmation({
         thread_ts: thread_ts,
         original_channel_id: original_channel_id,
@@ -43,7 +43,7 @@ const sendConfirmation = async (app, thread_ts, original_channel_id, shared_chan
         message_link: message_link
     });
 
-    return app.client.chat.postMessage(messageData);
+    return client.chat.postMessage(messageData);
 }
 
 module.exports = { openModal, shareMessage, getMessagePermalink, sendConfirmation };
