@@ -10,15 +10,15 @@ This Slack App was created to help this problem. The message is shared to the ne
 channel and a message on the original thread is sent to indicated to where the conversation was
 moved to and where it should continue.
 
-##Usage
+## Usage
 - Click on `More Actions` on the message you want to share (you don't have to be the author)  
-<img src="images/select-action.png" width="300"/>
+<img src="images/select-action.png" width="400"/>
 - Select the channel you want to share and add any new info if you want   
-<img src="images/share-message.png" width="300"/>
+<img src="images/share-message.png" width="400"/>
 - The Message will show up on the new channel  
-<img src="images/shared-message.png" width="300"/>
+<img src="images/shared-message.png" width="600"/>
 - The confirmation message will show up on the original message  
-<img src="images/confirmation-message.png" width="300"/>
+<img src="images/confirmation-message.png" width="400"/>
 
 ## Setup
 ### Create the App on Slack
