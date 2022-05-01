@@ -56,9 +56,9 @@ You can host your App anywhere, on this example I hosted on GCP Cloud Functions.
 1. Create an Organization and a Project
 2. Inside your project click on `Create Function`
 3. Add function name (`cross-post`)
-4. On Trigger change to `Allow unauthenticated invocations` (you can leave everything else as default or change as necessary)
+4. On `Trigger change to `Allow unauthenticated invocations` (you can leave everything else as default or change as necessary)
 5. Open `Runtime, build, ...` and click on `Add Variable`
-6. Add `SLACK_SIGNING_SECRET` and `SLACK_BOT_TOKEN` with the values you saved on previous steps
+6. Add `SLACK_SIGNING_SECRET` and `SLACK_BOT_TOKEN` with the values you saved from previous steps
 7. Click on Next
 8. Update the `package.json` and `index.js` files to the ones from here
 9. On the `index.js` you can remove the part that is not necessary on Cloud Functions
