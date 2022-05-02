@@ -45,11 +45,27 @@ module.exports = {
                     type: 'section',
                     text: {
                         type: 'mrkdwn',
-                        text: `:parrot-out: Original <${context.link}|message> sent on <#${context.original_channel_id}> by <@${context.username}>. Please continue thread here.`
+                        text: `:parrot-out: Original <${context.link}|message> sent on <#${context.original_channel_id}> by <@${context.username}>.`
                     }
                 },
                 {
                     type: 'divider'
+                },
+            ]
+        }
+    },
+    threadMessage: context => {
+        return {
+            thread_ts: context.thread_ts,
+            channel: context.channel_id,
+            text: "Please continue thread here.",
+            blocks: [
+                {
+                    type: 'section',
+                    text: {
+                        type: 'mrkdwn',
+                        text: `Please continue thread here.`
+                    }
                 },
             ]
         }

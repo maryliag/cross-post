@@ -70,8 +70,13 @@ app.view('cross_post_callback', async ({ body, view, ack, client, logger }) => {
             logger.error(resultShare.error);
         }
 
+        let threadShare = await actions.threadMessage(client, view, resultShare.message['ts']);
+        if (threadShare.error) {
+            logger.error(threadShare.error);
+        }
+
         let resultMessagePermalink = await actions.getMessagePermalink(
-            client, shared_channel_id, resultShare.message['ts']);
+            client, shared_channel_id, threadShare.message['ts']);
         if (resultMessagePermalink.error) {
             logger.error(resultMessagePermalink.error);
         }

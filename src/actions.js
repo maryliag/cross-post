@@ -25,6 +25,17 @@ const shareMessage = async (client, user, view, original_channel_id, link) => {
     return client.chat.postMessage(messageData);
 }
 
+// Creates a thread on the shared message.
+const threadMessage = async (client, view, thread_ts) => {
+    const values = view.state.values;
+    const messageData = payloads.threadMessage({
+        channel_id: values.channel.channel_id['selected_channel'],
+        thread_ts: thread_ts,
+    });
+
+    return client.chat.postMessage(messageData);
+}
+
 // Get the link for the message just shared.
 const getMessagePermalink = async (client, channel_id, message_ts) => {
     const messageData = payloads.getPermalink({
@@ -47,4 +58,4 @@ const sendConfirmation = async (client, thread_ts, original_channel_id, shared_c
     return client.chat.postMessage(messageData);
 }
 
-module.exports = { openModal, shareMessage, getMessagePermalink, sendConfirmation };
+module.exports = { openModal, shareMessage, threadMessage, getMessagePermalink, sendConfirmation };
