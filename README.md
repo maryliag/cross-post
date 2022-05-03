@@ -17,9 +17,9 @@ the original thread to indicate where the conversation should continue! Chaos no
 ## Usage
 1. Click on `More Actions` on the message you want to share (you don't have to be the author) and select the channel you want to share 
 <img src="images/sharing.gif" width="600"/>
-2. The Message will show up in the new channel  
+2. The Message will show up in the new channel with a new thread created 
 <img src="images/shared-message.gif" width="600"/>
-3. The confirmation message will show up in the original message  
+3. The confirmation message will show up in the original message with the link for the thread reply 
 <img src="images/confirmation.gif" width="400"/>
 4. And now people can reply to the right thread
 <img src="images/answer.gif" width="400"/>
