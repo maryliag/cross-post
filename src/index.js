@@ -82,7 +82,7 @@ app.view('cross_post_callback', async ({ body, view, ack, client, logger }) => {
         }
 
         let resultConfirmation = await actions.sendConfirmation(
-            client, thread_ts, original_channel_id, shared_channel_id, resultMessagePermalink['permalink']);
+            client, user, thread_ts, original_channel_id, shared_channel_id, resultMessagePermalink['permalink']);
         if (resultConfirmation.error) {
             logger.error(resultConfirmation.error);
         }

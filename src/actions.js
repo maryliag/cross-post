@@ -47,12 +47,13 @@ const getMessagePermalink = async (client, channel_id, message_ts) => {
 }
 
 // Post confirmation on the original message, pointing to the new thread.
-const sendConfirmation = async (client, thread_ts, original_channel_id, shared_channel_id, message_link) => {
+const sendConfirmation = async (client, user, thread_ts, original_channel_id, shared_channel_id, message_link) => {
     const messageData = payloads.confirmation({
         thread_ts: thread_ts,
         original_channel_id: original_channel_id,
         shared_channel_id: shared_channel_id,
-        message_link: message_link
+        message_link: message_link,
+        username: user.username,
     });
 
     return client.chat.postMessage(messageData);
