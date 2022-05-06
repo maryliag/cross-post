@@ -64,7 +64,7 @@ module.exports = {
                     type: 'section',
                     text: {
                         type: 'mrkdwn',
-                        text: `Please continue thread here.`
+                        text: `Please continue thread here (original poster: <@${context.author}>).`
                     }
                 },
             ]

@@ -35,7 +35,9 @@ app.shortcut('cross_post', async ({ shortcut, ack, logger, client }) => {
         await ack({
             response_action: "clear",
         });
+        let author = shortcut.message['user'];
 
+        // Get message link.
         let resultMessagePermalink = await actions.getMessagePermalink(
             client, shortcut.channel.id, shortcut.message['ts']);
         if (resultMessagePermalink.error) {
@@ -43,7 +45,7 @@ app.shortcut('cross_post', async ({ shortcut, ack, logger, client }) => {
         }
         let link = resultMessagePermalink['permalink'];
 
-        let result = await actions.openModal(app, shortcut, link)
+        let result = await actions.openModal(app, shortcut, author, link)
         if (result.error) {
             logger.error(result.error);
         }
@@ -62,15 +64,16 @@ app.view('cross_post_callback', async ({ body, view, ack, client, logger }) => {
         const { user } = body;
 
         let thread_ts = view.private_metadata.split(",")[0];
-        let original_channel_id = view.private_metadata.split(",")[1];
-        let link = view.private_metadata.split(",")[2];
+        let author = view.private_metadata.split(",")[1];
+        let original_channel_id = view.private_metadata.split(",")[2];
+        let link = view.private_metadata.split(",")[3];
         let shared_channel_id = view.state.values.channel.channel_id['selected_channel']
         let resultShare = await actions.shareMessage(client, user, view, original_channel_id, link);
         if (resultShare.error) {
             logger.error(resultShare.error);
         }
 
-        let threadShare = await actions.threadMessage(client, view, resultShare.message['ts']);
+        let threadShare = await actions.threadMessage(client, view, author, resultShare.message['ts']);
         if (threadShare.error) {
             logger.error(threadShare.error);
         }
